@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { Sensors } from '@ionic-native/sensors';
 import { Pedometer } from '@ionic-native/pedometer';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { Autostart } from '@ionic-native/autostart';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     Sensors,
     Pedometer,
     BackgroundMode,
+    Autostart,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

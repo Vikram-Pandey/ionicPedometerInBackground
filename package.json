@@ -19,6 +19,7 @@
     "@angular/forms": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/autostart": "^4.20.0",
     "@ionic-native/background-mode": "^4.20.0",
     "@ionic-native/core": "4.20.0",
     "@ionic-native/pedometer": "^4.20.0",
@@ -34,6 +35,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.2.4",
+    "cordova-plugin-autostart": "^2.3.0",
     "cordova-plugin-background-mode": "^0.7.3",
     "cordova-plugin-pedometer": "^0.4.1",
     "cordova-plugin-stepper": "git+https://github.com/achubutkin/cordova-plugin-stepper.git",
@@ -44,7 +46,8 @@
     "plugins": {
       "cordova-plugin-stepper": {},
       "cordova-plugin-pedometer": {},
-      "cordova-plugin-background-mode": {}
+      "cordova-plugin-background-mode": {},
+      "cordova-plugin-autostart": {}
     }
   }
 }
