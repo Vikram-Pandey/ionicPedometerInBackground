@@ -15,6 +15,7 @@ export class HomePage {
   start: boolean;
 	PedometerData:any;
 	stepCount : any = 0;
+  max=10000;
 
    constructor(public toastCtrl: ToastController,
   			  private ngZoneCtrl: NgZone,
