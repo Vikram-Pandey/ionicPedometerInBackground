@@ -15,7 +15,7 @@ export class HomePage {
   start: boolean;
 	PedometerData:any;
 	stepCount : any = 0;
-  max=10000;
+  max=1000;
   calories:number=0;
   miles:number=0.00;
 
@@ -38,6 +38,8 @@ export class HomePage {
              this.PedometerData = PedometerData;
              this.ngZoneCtrl.run(() => {
                 this.stepCount = this.PedometerData.numberOfSteps;
+                this.calories=Math.round(this.stepCount*0.5);
+                this.miles=Math.round(this.stepCount*0.5);
                // this.startDate = new Date(this.PedometerData.startDate);
                // this.endDate = new Date(this.PedometerData.endDate);
               });
@@ -65,11 +67,14 @@ export class HomePage {
 
 
     calorieCalculator(){
-      this.calories=Math.round(this.stepCount*0.045);
+      // this.calories=Math.round(this.stepCount*0.045);
+      this.calories=Math.round(this.stepCount*0.5);
+
     }
 
     mileCalculator(){
-      this.miles=Math.round(this.stepCount*0.0005);
+      //this.miles=Math.round(this.stepCount*0.0005);
+      this.miles=Math.round(this.stepCount*0.5);
     }
       
   
