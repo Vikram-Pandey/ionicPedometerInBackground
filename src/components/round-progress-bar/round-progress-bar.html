@@ -1,18 +1,18 @@
 <!-- Generated template for the RoundProgressBarComponent component -->
-<ion-header>
+<!-- <ion-header>
 	<ion-navbar color="primary">
 		<ion-title>Progress</ion-title>
 	</ion-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-	<div class="container">
-		
-	  
-		<h2>Sample progressbar</h2>
-	  
+	<div class="container">  
 		<div class="progress-wrapper">
-		  <div class="current" [ngStyle]="getOverlayStyle()">{{ current }}/{{ max }}</div>
+		  <div class="current" style="color:DeepSkyBlue" [ngStyle]="getOverlayStyle()">
+			<div class="small">Today's Steps</div>
+			<br>	  
+			{{ current }}
+		</div>
 		  <round-progress
 			[current]="current"
 			[max]="max"
@@ -29,7 +29,8 @@
 			[animationDelay]="animationDelay"
 		  ></round-progress>
 		</div>
-	  
+		</div>
+	</ion-content>
 		<!-- <button (click)="increment()">Increment</button>
 		<button (click)="increment(-1)">Decrement</button>
 	  
@@ -111,14 +112,13 @@
 			<input id="background" name="background" type="color" [(ngModel)]="background" />
 		  </div>
 		</form> -->
-	  </div>
 	  
-	  <svg>
+	  <!-- <svg>
 		<linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
 		  <stop offset="5%" stop-color="green" />
 		  <stop offset="95%" stop-color="gold" />
 		</linearGradient>
-	  </svg>
-</ion-content>
+	  </svg> -->
+
 
 

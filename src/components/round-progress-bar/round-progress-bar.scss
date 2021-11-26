@@ -1,4 +1,12 @@
 round-progress-bar {
+
+    .small{
+        font-size: small;
+        color:black;
+    }
+
+
+
     h2 {
         margin: 0 0 40px;
       }
@@ -32,13 +40,13 @@ round-progress-bar {
       
       .container {
         width: 100%;
-        max-width: 650px;
+        //max-width: 650px;
         margin: 40px auto 80px;
         text-align: center;
         padding: 40px;
         background: #fff;
-        border: solid 1px #ccc;
-        border-radius: 4px;
+        //border: solid 1px #ccc;
+        border-radius: 50px;
       }
       
       button {
