@@ -16,6 +16,8 @@ export class HomePage {
 	PedometerData:any;
 	stepCount : any = 0;
   max=10000;
+  calories:number=0;
+  miles:number=0.00;
 
    constructor(public toastCtrl: ToastController,
   			  private ngZoneCtrl: NgZone,
@@ -23,6 +25,9 @@ export class HomePage {
   			  public pedoCtrl: Pedometer)
     {
       this.stepCount=0;
+      this.calories=0;
+      this.miles=0.00;
+      this.fnGetPedoUpdate();
     }
   
   
@@ -56,6 +61,15 @@ export class HomePage {
           duration: 3000
         });
         toast.present();
+    }
+
+
+    calorieCalculator(){
+      this.calories=Math.round(this.stepCount*0.045);
+    }
+
+    mileCalculator(){
+      this.miles=Math.round(this.stepCount*0.0005);
     }
       
   
