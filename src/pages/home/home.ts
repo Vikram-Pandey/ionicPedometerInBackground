@@ -1,10 +1,12 @@
-import { Component,NgZone } from '@angular/core';
+import { Component,ModuleWithComponentFactories,NgZone } from '@angular/core';
 import { Sensors, TYPE_SENSOR } from '@ionic-native/sensors';
 import { NavController, Platform } from 'ionic-angular';
 
 import { ToastController } from 'ionic-angular';
-
+import { NativeStorage } from '@ionic-native/native-storage';
 import { Pedometer } from '@ionic-native/pedometer';
+import moment from 'moment';
+import { Autostart } from '@ionic-native/autostart';
 
 
 @Component({
@@ -18,11 +20,14 @@ export class HomePage {
   max=1000;
   calories:number=0;
   miles:number=0.00;
+  stepCountToStorage:number=0;
 
    constructor(public toastCtrl: ToastController,
   			  private ngZoneCtrl: NgZone,
   			  public platformCtrl: Platform,
-  			  public pedoCtrl: Pedometer)
+  			  public pedoCtrl: Pedometer,
+          public nativeStorage:NativeStorage,
+          public autoStart:Autostart)
     {
       this.stepCount=0;
       this.calories=0;
@@ -30,14 +35,17 @@ export class HomePage {
       this.fnGetPedoUpdate();
     }
   
-  
+  today:string=moment().format();
+
     fnGetPedoUpdate(){
       if (this.platformCtrl.is('cordova')) {
         this.pedoCtrl.startPedometerUpdates()
          .subscribe((PedometerData) => {
              this.PedometerData = PedometerData;
              this.ngZoneCtrl.run(() => {
-                this.stepCount = this.PedometerData.numberOfSteps;
+                this.stepCountToStorage = this.PedometerData.numberOfSteps;
+                this.nativeStorage.setItem(this.today,this.stepCountToStorage);
+                this.stepCount=this.nativeStorage.getItem(this.today);
                 this.calories=Math.round(this.stepCount*0.5);
                 this.miles=Math.round(this.stepCount*0.5);
                // this.startDate = new Date(this.PedometerData.startDate);
@@ -66,6 +74,11 @@ export class HomePage {
     }
 
 
+    ondateChange(){
+
+    }
+
+
     calorieCalculator(){
       // this.calories=Math.round(this.stepCount*0.045);
       this.calories=Math.round(this.stepCount*0.5);
@@ -76,7 +89,12 @@ export class HomePage {
       //this.miles=Math.round(this.stepCount*0.0005);
       this.miles=Math.round(this.stepCount*0.5);
     }
-      
+
+    
+
+
+    
+  
   
 
 }

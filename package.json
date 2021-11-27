@@ -22,6 +22,7 @@
     "@ionic-native/autostart": "^4.20.0",
     "@ionic-native/background-mode": "^4.20.0",
     "@ionic-native/core": "4.20.0",
+    "@ionic-native/native-storage": "^4.20.0",
     "@ionic-native/pedometer": "^4.20.0",
     "@ionic-native/sensors": "^4.20.0",
     "@ionic-native/splash-screen": "4.20.0",
@@ -30,6 +31,7 @@
     "angular-svg-round-progressbar": "^1.2.1",
     "ionic-angular": "3.9.9",
     "ionicons": "3.0.0",
+    "moment": "^2.29.1",
     "ng-circle-progress": "^1.0.0",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
@@ -39,6 +41,7 @@
     "@ionic/app-scripts": "3.2.4",
     "cordova-plugin-autostart": "^2.3.0",
     "cordova-plugin-background-mode": "^0.7.3",
+    "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-plugin-pedometer": "^0.4.1",
     "cordova-plugin-stepper": "git+https://github.com/achubutkin/cordova-plugin-stepper.git",
     "typescript": "2.6.2"
@@ -49,7 +52,8 @@
       "cordova-plugin-stepper": {},
       "cordova-plugin-pedometer": {},
       "cordova-plugin-background-mode": {},
-      "cordova-plugin-autostart": {}
+      "cordova-plugin-autostart": {},
+      "cordova-plugin-nativestorage": {}
     }
   }
 }
