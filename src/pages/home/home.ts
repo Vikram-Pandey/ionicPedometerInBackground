@@ -32,11 +32,11 @@ export class HomePage {
       this.stepCount=0;
       this.calories=0;
       this.miles=0.00;
-      //this.ondateChange();
+      this.ondateChange();
       this.fnGetPedoUpdate();
     }
   
-  today:string=moment().format();
+  today:string=moment().toDate().getDate().toString();
 
     fnGetPedoUpdate(){
       if (this.platformCtrl.is('cordova')) {
