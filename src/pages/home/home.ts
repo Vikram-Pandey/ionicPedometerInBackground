@@ -45,7 +45,9 @@ export class HomePage {
              this.ngZoneCtrl.run(() => {
                 this.stepCountToStorage = this.PedometerData.numberOfSteps;
                 this.nativeStorage.setItem(this.today,this.stepCountToStorage);
-                this.stepCount=this.nativeStorage.getItem(this.today);
+                this.nativeStorage.getItem(this.today).then((currentStep)=>{
+                  this.stepCount=currentStep;
+                })
                 this.calories=Math.round(this.stepCount*0.5);
                 this.miles=Math.round(this.stepCount*0.5);
                // this.startDate = new Date(this.PedometerData.startDate);
