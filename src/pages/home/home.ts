@@ -45,19 +45,16 @@ export class HomePage {
              this.PedometerData = PedometerData;
              this.ngZoneCtrl.run(() => {
                 this.stepCountToStorage += this.PedometerData.numberOfSteps;
+                this.fnTost(this.stepCountToStorage);
                 this.nativeStorage.setItem(this.today,this.stepCountToStorage).then((item)=>{
                   console.log("Stored Item"+item);
                   this.fnTost("itemStored");
                   error=>this.fnTost("error at nativestorage Set Item");
                 })
-                this.nativeStorage.getItem(this.today).then((currentStep)=>{
-                  this.stepCount+=currentStep;
-                  this.calories=Math.round(this.stepCount*0.5);
-                this.miles=Math.round(this.stepCount*0.5);
-                })
+                this.stepCount+=this.getValueFromStorage();
                 this.fnTost(this.stepCount);
-                // this.calories=Math.round(this.stepCount*0.5);
-                // this.miles=Math.round(this.stepCount*0.5);
+                this.calories=Math.round(this.stepCount*0.5);
+                this.miles=Math.round(this.stepCount*0.5);
                // this.startDate = new Date(this.PedometerData.startDate);
                // this.endDate = new Date(this.PedometerData.endDate);
               });
@@ -67,6 +64,11 @@ export class HomePage {
     }else{
       this.fnTost('This application needs to be run on📱device');
     }
+    }
+
+    async getValueFromStorage(){
+      let val=await this.nativeStorage.getItem(this.today);
+      return val;
     }
   
     fnStopPedoUpdate(){
