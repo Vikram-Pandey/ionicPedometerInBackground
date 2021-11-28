@@ -32,7 +32,7 @@ export class HomePage {
       this.stepCount=0;
       this.calories=0;
       this.miles=0.00;
-      this.ondateChange();
+      //this.ondateChange();
       this.fnGetPedoUpdate();
     }
   
@@ -66,8 +66,11 @@ export class HomePage {
     }
     }
 
-    async getValueFromStorage(){
-      let val=await this.nativeStorage.getItem(this.today);
+     getValueFromStorage(){
+      let val=this.nativeStorage.getItem(this.today).then((item)=>{
+          return item;
+      });
+
       return val;
     }
   
