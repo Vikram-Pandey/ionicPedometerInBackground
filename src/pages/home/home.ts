@@ -32,6 +32,7 @@ export class HomePage {
       this.stepCount=0;
       this.calories=0;
       this.miles=0.00;
+      //this.ondateChange();
       this.fnGetPedoUpdate();
     }
   
@@ -44,7 +45,10 @@ export class HomePage {
              this.PedometerData = PedometerData;
              this.ngZoneCtrl.run(() => {
                 this.stepCountToStorage = this.PedometerData.numberOfSteps;
-                this.nativeStorage.setItem(this.today,this.stepCountToStorage);
+                this.nativeStorage.setItem(this.today,this.stepCountToStorage).then((item)=>{
+                  console.log("Stored Item"+item);
+                  error=>this.fnTost("error at nativestorage Set Item");
+                })
                 this.nativeStorage.getItem(this.today).then((currentStep)=>{
                   this.stepCount=currentStep;
                 })
@@ -77,7 +81,23 @@ export class HomePage {
 
 
     ondateChange(){
+    //  this.stepCountToStorage = this.PedometerData.numberOfSteps;
+      this.stepCountToStorage=100;
+      console.log("StepCounter"+this.stepCountToStorage);
+      console.log("today Variable"+this.today);
+      this.nativeStorage.setItem(this.today,this.stepCountToStorage).then((item)=>{
+        console.log("Stored Item"+item);
+        error=>console.log("Error Storing Item",error);
+      })
 
+      console.log("Native Storage Set with key")
+      this.nativeStorage.getItem(this.today).then((currentStep)=>{
+        this.stepCount=currentStep;
+
+      })
+
+      this.calories=Math.round(this.stepCount*0.5);
+                this.miles=Math.round(this.stepCount*0.5);
     }
 
 
