@@ -11,6 +11,7 @@ import { Pedometer } from '@ionic-native/pedometer';
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { Autostart } from '@ionic-native/autostart';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
     Pedometer,
     BackgroundMode,
     Autostart,
+    NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
