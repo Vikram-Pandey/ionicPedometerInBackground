@@ -33,6 +33,7 @@ export class HomePage {
       this.calories=0;
       this.miles=0.00;
       //this.ondateChange();
+      console.log(this.interval());
       this.fnGetPedoUpdate();
     }
   
@@ -44,15 +45,34 @@ export class HomePage {
          .subscribe((PedometerData) => {
              this.PedometerData = PedometerData;
              this.ngZoneCtrl.run(() => {
-                this.stepCountToStorage += this.PedometerData.numberOfSteps;
-                this.fnTost(this.stepCountToStorage);
-                this.nativeStorage.setItem(this.today,this.stepCountToStorage).then((item)=>{
-                  console.log("Stored Item"+item);
-                  this.fnTost("itemStored");
-                  error=>this.fnTost("error at nativestorage Set Item");
-                })
-                this.stepCount+=this.getValueFromStorage();
-                this.fnTost(this.stepCount);
+               //this.stepCount=this.PedometerData.numberOfSteps;
+               this.stepCountToStorage = this.PedometerData.numberOfSteps;
+              
+               if(this.interval()!=0 && this.stepCountToStorage==0){
+                this.stepCount=this.getValueFromStorage();
+              }
+
+              else if(this.interval()==0){
+                 // savetoDatabase();
+              }
+
+              else{
+                  this.stepCount=this.stepCountToStorage;
+                  this.saveValueInStorage(this.today,this.stepCountToStorage);
+              }
+
+               
+                // this.fnTost(this.stepCountToStorage);
+                // this.nativeStorage.setItem(this.today,this.stepCountToStorage).then((item)=>{
+                //   console.log("Stored Item"+item);
+                //   this.fnTost("itemStored");
+                //   error=>this.fnTost("error at nativestorage Set Item");
+                // })
+
+               
+
+                // this.stepCount=this.getValueFromStorage();
+                  this.fnTost(this.stepCount);
                 this.calories=Math.round(this.stepCount*0.5);
                 this.miles=Math.round(this.stepCount*0.5);
                // this.startDate = new Date(this.PedometerData.startDate);
@@ -68,10 +88,17 @@ export class HomePage {
 
      getValueFromStorage(){
       let val=this.nativeStorage.getItem(this.today).then((item)=>{
-          return item;
+          return item.steps;
       });
 
       return val;
+    }
+
+    saveValueInStorage(_key:string,_val:number){
+      this.nativeStorage.setItem(_key,{'steps':_val}).then(
+        () => console.log('Stored item!'),
+        error => console.error('Error storing item', error)
+      );
     }
   
     fnStopPedoUpdate(){
@@ -89,24 +116,8 @@ export class HomePage {
     }
 
 
-    ondateChange(){
-    //  this.stepCountToStorage = this.PedometerData.numberOfSteps;
-      this.stepCountToStorage=100;
-      console.log("StepCounter"+this.stepCountToStorage);
-      console.log("today Variable"+this.today);
-      this.nativeStorage.setItem(this.today,this.stepCountToStorage).then((item)=>{
-        console.log("Stored Item"+item);
-        error=>console.log("Error Storing Item",error);
-      })
-
-      console.log("Native Storage Set with key")
-      this.nativeStorage.getItem(this.today).then((currentStep)=>{
-        this.stepCount=currentStep;
-
-      })
-
-      this.calories=Math.round(this.stepCount*0.5);
-                this.miles=Math.round(this.stepCount*0.5);
+    interval(){
+     return moment("24:00:00", "hh:mm:ss").diff(moment(), 'seconds');
     }
 
 
