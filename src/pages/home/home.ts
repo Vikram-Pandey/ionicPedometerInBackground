@@ -56,12 +56,12 @@ export class HomePage {
                if(this.nativeStorage.keys().then((keys)=>{
                 for(let keyitems in keys){
                   if(keyitems==today){
-                    keyExist=true;
+                    keyExist=1;
                   }
                 }
                }))
 
-               if(keyExist==true){
+               if(keyExist==1){
                 this.nativeStorage.getItem(today).then((item)=>{
                   stepCountToStorage=item.steps+stepsFromPedometer;
                  })
