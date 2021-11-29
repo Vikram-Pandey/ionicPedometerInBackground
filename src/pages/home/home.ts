@@ -53,28 +53,25 @@ export class HomePage {
                let keyExist;
                stepsFromPedometer = this.PedometerData.numberOfSteps;
 
-               if(this.nativeStorage.keys().then((keys)=>{
-                if(keys==today){
-                  keyExist=1;
+               if(this.nativeStorage.getItem(today).then((data)=>{
+                if(data){
+                  this.nativeStorage.getItem(today).then((item)=>{
+                    stepCountToStorage=item.steps+stepsFromPedometer;
+                   })
+    
+    
+                   this.saveValueInStorage(today,stepCountToStorage);
+    
+                   this.stepCount=stepCountToStorage;
+                }
+
+                else{
+                  this.stepCount=stepsFromPedometer;
+                  this.saveValueInStorage(today,this.stepCount);
                 }
                }))
 
-               if(keyExist==1){
-                this.nativeStorage.getItem(today).then((item)=>{
-                  stepCountToStorage=item.steps+stepsFromPedometer;
-                 })
-  
-  
-                 this.saveValueInStorage(today,stepCountToStorage);
-  
-                 this.stepCount=stepCountToStorage;
-
-               }
-               else{
-                 this.stepCount=stepsFromPedometer;
-                 this.saveValueInStorage(today,this.stepCount);
-               }
-
+            
               
 
                   //update database every 5 mins
