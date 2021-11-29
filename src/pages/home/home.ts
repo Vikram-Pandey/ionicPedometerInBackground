@@ -61,7 +61,7 @@ export class HomePage {
                 }
                }))
 
-               if(keyExist===true){
+               if(keyExist==true){
                 this.nativeStorage.getItem(today).then((item)=>{
                   stepCountToStorage=item.steps+stepsFromPedometer;
                  })
