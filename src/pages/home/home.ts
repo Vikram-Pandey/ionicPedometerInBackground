@@ -74,6 +74,7 @@ export class HomePage {
                }
                else{
                  this.stepCount=stepsFromPedometer;
+                 this.saveValueInStorage(today,this.stepCount);
                }
 
               
