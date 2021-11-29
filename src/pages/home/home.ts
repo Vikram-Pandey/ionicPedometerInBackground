@@ -53,7 +53,7 @@ export class HomePage {
                let keyExist;
                stepsFromPedometer = this.PedometerData.numberOfSteps;
 
-               if(this.nativeStorage.getItem(today).then((data)=>{
+               (this.nativeStorage.getItem(today).then((data)=>{
                 if(data){
                   this.nativeStorage.getItem(today).then((item)=>{
                     stepCountToStorage=item.steps+stepsFromPedometer;
