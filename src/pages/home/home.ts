@@ -20,7 +20,8 @@ export class HomePage {
   max=1000;
   calories:number=0;
   miles:number=0.00;
-  stepCountToStorage:number=0;
+  
+  
 
    constructor(public toastCtrl: ToastController,
   			  private ngZoneCtrl: NgZone,
@@ -37,7 +38,7 @@ export class HomePage {
       this.fnGetPedoUpdate();
     }
   
-  today:string=moment().toDate().getDate().toString();
+  
 
     fnGetPedoUpdate(){
       if (this.platformCtrl.is('cordova')) {
@@ -46,31 +47,24 @@ export class HomePage {
              this.PedometerData = PedometerData;
              this.ngZoneCtrl.run(() => {
                //this.stepCount=this.PedometerData.numberOfSteps;
-               this.stepCountToStorage = this.PedometerData.numberOfSteps;
-              
-               if(this.interval()!=0 && this.stepCountToStorage==0){
-                this.stepCount=this.getValueFromStorage();
-              }
+               let stepsFromPedometer;
+               let stepCountToStorage;
+               let today=this.getTodayDate();
+               stepsFromPedometer = this.PedometerData.numberOfSteps;
 
-              else if(this.interval()==0){
-                 // savetoDatabase();
-              }
+               this.nativeStorage.getItem(today).then((item)=>{
+                stepCountToStorage=item.steps+stepsFromPedometer;
+               })
 
-              else{
-                  this.stepCount=this.stepCountToStorage;
-                  this.saveValueInStorage(this.today,this.stepCountToStorage);
-              }
 
-               
-                // this.fnTost(this.stepCountToStorage);
-                // this.nativeStorage.setItem(this.today,this.stepCountToStorage).then((item)=>{
-                //   console.log("Stored Item"+item);
-                //   this.fnTost("itemStored");
-                //   error=>this.fnTost("error at nativestorage Set Item");
-                // })
+               this.saveValueInStorage(today,stepCountToStorage);
 
-               
+               this.stepCount=stepCountToStorage;
 
+                  //update database every 5 mins
+                  //fix this.today.
+                  //Work on server to aggregagte data after 3 months.
+        
                 // this.stepCount=this.getValueFromStorage();
                   this.fnTost(this.stepCount);
                 this.calories=Math.round(this.stepCount*0.5);
@@ -86,13 +80,7 @@ export class HomePage {
     }
     }
 
-     getValueFromStorage(){
-      let val=this.nativeStorage.getItem(this.today).then((item)=>{
-          return item.steps;
-      });
-
-      return val;
-    }
+    
 
     saveValueInStorage(_key:string,_val:number){
       this.nativeStorage.setItem(_key,{'steps':_val}).then(
@@ -118,6 +106,10 @@ export class HomePage {
 
     interval(){
      return moment("24:00:00", "hh:mm:ss").diff(moment(), 'seconds');
+    }
+
+    getTodayDate(){
+      return moment().toDate().getDate().toString();
     }
 
 
