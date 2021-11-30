@@ -7,6 +7,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { Pedometer } from '@ionic-native/pedometer';
 import moment from 'moment';
 import { Autostart } from '@ionic-native/autostart';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class HomePage {
   			  private ngZoneCtrl: NgZone,
   			  public platformCtrl: Platform,
   			  public pedoCtrl: Pedometer,
-          public nativeStorage:NativeStorage,
+          public storage:Storage,
           public autoStart:Autostart)
     {
       this.stepCount=0;
@@ -35,7 +36,17 @@ export class HomePage {
       this.miles=0.00;
       //this.ondateChange();
       console.log(this.interval());
-      this.fnGetPedoUpdate();
+      //this.init();
+      //this.saveValueInStorage(this.getTodayDate(),2000);
+     // this.checkifTodayExistInStorage(); //working
+     //this.storage.clear();
+        this.fnGetPedoUpdate();
+       
+      
+     
+
+        
+      
     }
   
   
@@ -53,9 +64,9 @@ export class HomePage {
                let keyExist;
                stepsFromPedometer = this.PedometerData.numberOfSteps;
 
-               (this.nativeStorage.getItem(today).then((data)=>{
-                if(data){
-                  this.nativeStorage.getItem(today).then((item)=>{
+               (this.storage.get(today).then((data)=>{
+                if(data){ 
+                  this.storage.get(today).then((item)=>{
                     stepCountToStorage=item.steps+stepsFromPedometer;
                    })
     
@@ -93,13 +104,18 @@ export class HomePage {
     }
     }
 
+
+    // async init() {
+    //   // If using a custom driver:
+    //   // await this.storage.defineDriver(MyCustomDriver)
+    //    await this.storage.;
+    // }
+
     
 
-    saveValueInStorage(_key:string,_val:number){
-      this.nativeStorage.setItem(_key,{'steps':_val}).then(
-        () => console.log('Stored item!'),
-        error => console.error('Error storing item', error)
-      );
+   async saveValueInStorage(_key:string,_val:any){
+      console.log("Starting to store ");
+      this.storage.set(_key, _val);
     }
   
     fnStopPedoUpdate(){
@@ -123,6 +139,19 @@ export class HomePage {
 
     getTodayDate(){
       return moment().toDate().getDate().toString();
+    }
+
+    checkifTodayExistInStorage(){
+      let today=this.getTodayDate();
+      this.storage.get(today).then((data)=>{
+        console.log("today value is",data);
+        if(data){
+          alert("Exists");
+        }
+        else{
+          alert("False");
+        }
+      })
     }
 
 

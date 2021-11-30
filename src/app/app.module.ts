@@ -12,6 +12,9 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { Autostart } from '@ionic-native/autostart';
 import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { NativeStorage } from '@ionic-native/native-storage';
+import { IonicStorageModule} from '@ionic/storage';
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +25,11 @@ import { NativeStorage } from '@ionic-native/native-storage';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    RoundProgressModule
+    RoundProgressModule,
+    IonicStorageModule.forRoot({
+       name: '__mydb',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,7 +44,6 @@ import { NativeStorage } from '@ionic-native/native-storage';
     Pedometer,
     BackgroundMode,
     Autostart,
-    NativeStorage,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
