@@ -41,7 +41,7 @@ export class HomePage {
       //this.saveValueInStorage(this.getTodayDate(),2000);
      // this.checkifTodayExistInStorage(); //working
      
-        //this.fnGetPedoUpdate();
+        this.fnGetPedoUpdate();
       
      // console.log("adhikar"+ this.checkifTodayExistInStorage());
 
@@ -68,12 +68,14 @@ export class HomePage {
                let keyExist;
                stepsFromPedometer = this.PedometerData.numberOfSteps;
                
-               this.storage.get(today).then((item)=>{
+               this.storage.get(today).then((itemcheck)=>{
                 console.log("in get")
-                if(item){
+                if(itemcheck){
                   this.storage.get(today).then((item)=>{
                     this.fnTost("We are at not null wala");
                     stepCountToStorage=item+stepsFromPedometer;
+                    this.saveValueInStorage(today,stepCountToStorage);
+                    this.stepCount=stepCountToStorage;
                   
                 })
               }
