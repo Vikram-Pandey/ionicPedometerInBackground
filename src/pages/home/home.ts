@@ -37,13 +37,17 @@ export class HomePage {
       //this.ondateChange();
       console.log(this.interval());
       //this.init();
+      
       //this.saveValueInStorage(this.getTodayDate(),2000);
      // this.checkifTodayExistInStorage(); //working
-     //this.storage.clear();
-        this.fnGetPedoUpdate();
-       
-      
      
+        //this.fnGetPedoUpdate();
+      
+     // console.log("adhikar"+ this.checkifTodayExistInStorage());
+
+      
+      
+        
 
         
       
@@ -63,29 +67,41 @@ export class HomePage {
                let today=this.getTodayDate();
                let keyExist;
                stepsFromPedometer = this.PedometerData.numberOfSteps;
-                this.calories=0;
-                this.miles=0;
-               if(this.storage.get(today)===null){
-                this.fnTost("We are at null wala");
-                this.stepCount=stepsFromPedometer;
-                this.saveValueInStorage(today,this.stepCount);
-               }
-               else{
+               
+               this.storage.get(today).then((item)=>{
+                console.log("in get")
+                if(item){
                   this.storage.get(today).then((item)=>{
                     this.fnTost("We are at not null wala");
                     stepCountToStorage=item+stepsFromPedometer;
-                   })
+                  
+                })
+              }
+                else{
+                  this.fnTost("We are at null wala");
+                this.stepCount=stepsFromPedometer;
+                this.saveValueInStorage(today,this.stepCount);
+                }
+              })
+
+
+               
+                
+              //  }
+              //  else{
+                
+              //      })
     
     
-                   this.saveValueInStorage(today,stepCountToStorage);
+              //      this.saveValueInStorage(today,stepCountToStorage);
     
-                   this.stepCount=stepCountToStorage;
+              //      this.stepCount=stepCountToStorage;
                 
 
               
                 
                
-              }
+              // }
             
               
 
@@ -117,9 +133,10 @@ export class HomePage {
 
     
 
-   async saveValueInStorage(_key:string,_val:any){
+    saveValueInStorage(_key:string,_val:any){
       console.log("Starting to store ");
       this.storage.set(_key, _val);
+      console.log("set")
     }
   
     fnStopPedoUpdate(){
@@ -142,20 +159,16 @@ export class HomePage {
     }
 
     getTodayDate(){
+      console.log(moment().toDate().getDate().toString())
       return moment().toDate().getDate().toString();
     }
 
-    checkifTodayExistInStorage(){
+   async checkifTodayExistInStorage(){
+     // let val=0;
       let today=this.getTodayDate();
-      this.storage.get(today).then((data)=>{
-        console.log("today value is",data);
-        if(data){
-          alert("Exists");
-        }
-        else{
-          alert("False");
-        }
-      })
+      
+      let val=await this.storage.get(today);
+      return val;
     }
 
 
