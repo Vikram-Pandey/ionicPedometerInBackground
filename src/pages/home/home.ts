@@ -72,7 +72,7 @@ export class HomePage {
                else{
                   this.storage.get(today).then((item)=>{
                     this.fnTost("We are at not null wala");
-                    stepCountToStorage=item.steps+stepsFromPedometer;
+                    stepCountToStorage=item+stepsFromPedometer;
                    })
     
     
