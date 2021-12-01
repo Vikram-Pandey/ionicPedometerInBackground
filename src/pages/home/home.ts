@@ -64,9 +64,14 @@ export class HomePage {
                let keyExist;
                stepsFromPedometer = this.PedometerData.numberOfSteps;
 
-               (this.storage.get(today).then((data)=>{
-                if(data){ 
+               if(this.storage.get(today)===null){
+                this.fnTost("We are at null wala");
+                this.stepCount=stepsFromPedometer;
+                this.saveValueInStorage(today,this.stepCount);
+               }
+               else{
                   this.storage.get(today).then((item)=>{
+                    this.fnTost("We are at not null wala");
                     stepCountToStorage=item.steps+stepsFromPedometer;
                    })
     
@@ -74,14 +79,12 @@ export class HomePage {
                    this.saveValueInStorage(today,stepCountToStorage);
     
                    this.stepCount=stepCountToStorage;
-                }
+                
 
-                else{
-                  this.stepCount=stepsFromPedometer;
-                  this.saveValueInStorage(today,this.stepCount);
-                }
-               }))
-
+              
+                
+               
+              }
             
               
 
