@@ -63,7 +63,8 @@ export class HomePage {
                let today=this.getTodayDate();
                let keyExist;
                stepsFromPedometer = this.PedometerData.numberOfSteps;
-
+                this.calories=0;
+                this.miles=0;
                if(this.storage.get(today)===null){
                 this.fnTost("We are at null wala");
                 this.stepCount=stepsFromPedometer;
